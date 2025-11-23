@@ -19,10 +19,10 @@ const newsList = ref([
   },
   { 
     id: 3, 
-    title: '廟宇整修公告', 
-    date: '2025/05/01', 
-    content: '後殿將於下個月進行局部彩繪修復，期間部分區域暫不開放。',
-    icon: 'fa-wrench' 
+    title: '祈福平安宴席', 
+    date: '2025/12/01', 
+    content: '下個月將進行祈福平安宴席，歡迎信眾報名呷平安，擲筊求平安米。',
+    icon: 'fa-bowl-food' 
   }
 ])
 </script>

@@ -22,10 +22,10 @@
         </div>
       </div>
       <div class="carousel-item">
-        <img src="https://placehold.co/1200x500/333/FFF?text=公益慈善+3" class="d-block w-100" alt="活動三">
+        <img src="https://placehold.co/1200x500/333/FFF?text=中元普渡+3" class="d-block w-100" alt="活動三">
         <div class="carousel-caption d-none d-md-block">
-          <h5>冬令救濟</h5>
-          <p>發放物資，關懷弱勢。</p>
+          <h5>中元普渡</h5>
+          <p>十方佈施，廣植福則。</p>
         </div>
       </div>
     </div>

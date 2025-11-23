@@ -7,7 +7,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="#carousel">活動花絮</a></li>
+          <li class="nav-item"><a class="nav-link" href="#carouselSection">活動花絮</a></li>
           <li class="nav-item"><a class="nav-link" href="#news">訊息公告</a></li>
           <li class="nav-item"><a class="nav-link" href="#inquiry">線上問事</a></li>
           <li class="nav-item"><a class="nav-link" href="#traffic">交通資訊</a></li>

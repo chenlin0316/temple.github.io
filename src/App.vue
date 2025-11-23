@@ -27,6 +27,15 @@ import Footer from './components/Footer.vue'
     --temple-red: #8B0000;
     --temple-gold: #DAA520;
 }
+
+html {
+    /* 1. 預留頂部空間：數值要比導覽列高度大一點 (建議 70px 或 80px) */
+    scroll-padding-top: 80px;
+    
+    /* 2. 平滑滾動：讓畫面是用「滑」的過去，而不是瞬間跳過去，質感會更好 */
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: "Microsoft JhengHei", sans-serif;
     background-color: #fcfcfc;

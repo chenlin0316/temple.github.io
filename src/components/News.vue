@@ -1,0 +1,49 @@
+<script setup>
+import { ref } from 'vue'
+
+// 定義公告資料 (以後如果要串接後端 API，就是替換這裡的資料)
+const newsList = ref([
+  { 
+    id: 1, 
+    title: '春節點燈開始受理', 
+    date: '2025/01/10', 
+    content: '即日起開始受理太歲燈、光明燈、財利燈登記，請信眾提早報名。',
+    icon: 'fa-bell' 
+  },
+  { 
+    id: 2, 
+    title: '媽祖聖誕祝壽大典', 
+    date: '2025/04/20', 
+    content: '農曆三月二十三日將舉辦祝壽三獻禮，歡迎十方善信蒞臨參拜。',
+    icon: 'fa-calendar-days' 
+  },
+  { 
+    id: 3, 
+    title: '廟宇整修公告', 
+    date: '2025/05/01', 
+    content: '後殿將於下個月進行局部彩繪修復，期間部分區域暫不開放。',
+    icon: 'fa-wrench' 
+  }
+])
+</script>
+
+<template>
+  <section id="news" class="container py-5">
+    <div class="text-center">
+      <h2 class="section-title">最新訊息公告</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-4 mb-3" v-for="news in newsList" :key="news.id">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-danger">
+              <i :class="['fa-solid', news.icon]"></i> {{ news.title }}
+            </h5>
+            <p class="card-text">{{ news.content }}</p>
+            <p class="text-muted small">{{ news.date }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>

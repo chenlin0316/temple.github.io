@@ -19,7 +19,7 @@
     color: #8B0000;
     border-bottom: 3px solid #DAA520;
     display: inline-block;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
     margin-bottom: 30px;
 }
 </style>

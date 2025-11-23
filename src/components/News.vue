@@ -47,3 +47,11 @@ const newsList = ref([
     </div>
   </section>
 </template>
+<style scoped>
+/* 元件內的 h2 樣式因為有 scoped 屬性，可能吃不到全域設定 */
+/* 這裡重新定義一次，確保樣式正確 */
+.section-news {
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+</style>

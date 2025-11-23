@@ -25,7 +25,7 @@
         <img src="https://placehold.co/1200x500/333/FFF?text=中元普渡+3" class="d-block w-100" alt="活動三">
         <div class="carousel-caption d-none d-md-block">
           <h5>中元普渡</h5>
-          <p>十方佈施，廣植福則。</p>
+          <p>十方佈施，廣植福澤。</p>
         </div>
       </div>
     </div>

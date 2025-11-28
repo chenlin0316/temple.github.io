@@ -1,3 +1,6 @@
+<script setup>
+import OnlineCounter from './OnlineCounter.vue'
+</script>
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #8B0000;">
     <div class="container">
@@ -5,7 +8,7 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="collapse navbar-collapse" id="navbarNav">        
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="#carouselSection">活動花絮</a></li>
           <li class="nav-item"><a class="nav-link" href="#news">訊息公告</a></li>
@@ -13,6 +16,9 @@
           <li class="nav-item"><a class="nav-link" href="#traffic">交通資訊</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">聯絡我們</a></li>
         </ul>
+        <div class="ms-3">
+          <OnlineCounter />
+        </div>
       </div>
     </div>
   </nav>

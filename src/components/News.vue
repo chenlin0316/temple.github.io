@@ -1,45 +1,57 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import { db } from '../firebase'
+import { collection, getDocs, query, orderBy } from 'firebase/firestore'
 
+// 資料改為空陣列，等待從雲端抓取
+const rawNewsList = ref([])
+const loading = ref(true)
 
-// 定義公告資料 (以後如果要串接後端 API，就是替換這裡的資料)
-const newsList = ref([
-  { 
-    id: 1, 
-    title: '春節點燈開始受理', 
-    date: '2025/01/10', 
-    content: '即日起開始受理太歲燈、光明燈、財利燈登記，請信眾提早報名。',
-    icon: 'fa-bell' 
-  },
-  { 
-    id: 2, 
-    title: '媽祖聖誕祝壽大典', 
-    date: '2025/04/20', 
-    content: '農曆三月二十三日將舉辦祝壽三獻禮，歡迎十方善信蒞臨參拜。',
-    icon: 'fa-calendar-days' 
-  },
-  { 
-    id: 3, 
-    title: '中元普渡', 
-    date: '2025/9/01', 
-    content: '下個月將舉行十方佈施大會，歡迎信眾報名。',
-    icon: 'fa-bowl-food' 
-  },
-  { 
-    id: 4, 
-    title: '祈福平安宴席', 
-    date: '2025/12/01', 
-    content: '下個月將進行祈福平安宴席，歡迎信眾報名呷平安，擲筊求平安米。',
-    icon: 'fa-bowl-food' 
-  },
-  { 
-    id: 5, 
-    title: '志工招募', 
-    date: '2025/12/15', 
-    content: '誠徵假日導覽志工，歡迎熱心民眾報名參加。',
-    icon: 'fa-users' 
+// 👇 核心邏輯：透過 computed 自動計算顯示的列表
+const displayNewsList = computed(() => {
+  // 1. 取得今天的日期 (格式: YYYY-MM-DD)
+  const today = new Date().toISOString().split('T')[0];
+
+  return rawNewsList.value
+    // A. 過濾：只保留 (沒有設下架日期) 或 (下架日期還沒到) 的資料
+    .filter(item => {
+      if (!item.endDate) return true; // 沒設期限 -> 永遠顯示
+      return item.endDate >= today;   // 期限 >= 今天 -> 顯示
+    })
+    // B. 排序：置頂優先，其次看日期
+    .sort((a, b) => {
+      // 如果 a 置頂但 b 沒置頂 -> a 排前面 (-1)
+      if (a.isTop && !b.isTop) return -1;
+      // 如果 b 置頂但 a 沒置頂 -> b 排前面 (1)
+      if (!a.isTop && b.isTop) return 1;
+      // 如果置頂狀態一樣 -> 比較日期 (新的在前面)
+      return b.date.localeCompare(a.date);
+    });
+});
+
+const fetchNews = async () => {
+  try {
+    // 這裡我們只抓資料，邏輯交給前端 computed 處理 (避免 Firestore 複雜索引問題)
+    const q = query(collection(db, 'news')); // 抓全部
+    const querySnapshot = await getDocs(q);
+    
+    const tempNews = [];
+    querySnapshot.forEach((doc) => {
+      tempNews.push({ id: doc.id, ...doc.data() });
+    });
+    
+    rawNewsList.value = tempNews;
+  } catch (e) {
+    console.error("讀取失敗:", e);
+  } finally {
+    loading.value = false;
   }
-])
+}
+
+// 畫面載入時執行抓取
+onMounted(() => {
+  fetchNews()
+})
 
 // 1. 取得容器的 DOM 元素
 const scrollContainer = ref(null)
@@ -63,31 +75,53 @@ const onWheel = (evt) => {
 
 <template>
   <section id="news" class="container py-5">
-    <div class="text-center">
-      <h2 class="section-title">最新訊息公告</h2>
-      <p class="text-muted small">
-        <i class="fa-solid fa-hand-pointer"></i> 左右滑動查看更多
-      </p>
+    
+    <div class="d-flex justify-content-between align-items-end mb-4 border-bottom border-warning pb-2">
+      <h2 class="text-danger mb-0 fw-bold">
+        <i class="fa-solid fa-bullhorn"></i> 最新公告
+      </h2>    
     </div>
 
-    <div class="row flex-nowrap overflow-auto pb-4 scroll-container" ref="scrollContainer"
-      @wheel="onWheel">      
+    <div 
+      class="row flex-nowrap overflow-auto pb-4 scroll-container" 
+      ref="scrollContainer"
+      @wheel="onWheel"
+    >
       
-      <div class="news-col mb-3 px-2" v-for="news in newsList" :key="news.id">
+      <div v-if="loading" class="col-12 text-center py-5">
+        <div class="spinner-border text-danger" role="status"></div>
+        <p class="mt-2 text-muted">公告載入中...</p>
+      </div>
+
+      <div v-else-if="displayNewsList.length === 0" class="col-12 text-center py-5">
+        <p class="text-muted">目前沒有最新公告</p>
+      </div>
+
+      <div class="news-col mb-3 px-2" v-for="news in displayNewsList" :key="news.id">
         
-        <div class="card news-card shadow-sm border-0">
+        <div class="card news-card shadow-sm border-0 position-relative">
+          
+          <div v-if="news.isTop" class="position-absolute top-0 end-0 m-2" style="z-index: 10;">
+            <span class="badge bg-warning text-dark shadow-sm">
+              <i class="fa-solid fa-thumbtack"></i> 置頂
+            </span>
+          </div>
+
+          <img v-if="news.image" :src="news.image" class="card-img-top" style="height: 150px; object-fit: cover;" alt="公告圖片">
+          
           <div class="card-body d-flex flex-column justify-content-between">
             <div>
               <h5 class="card-title text-danger fw-bold">
                 <i :class="['fa-solid', news.icon]"></i> {{ news.title }}
               </h5>
-              <p class="card-text mt-3">{{ news.content }}</p>
+              <p class="card-text mt-3 text-secondary">{{ news.content }}</p>
             </div>
-            <p class="text-muted small mb-0 mt-3 border-top pt-2">
-              <i class="fa-regular fa-clock"></i> {{ news.date }}
-            </p>
+            <p class="text-muted small mb-0 mt-3 border-top pt-2 d-flex justify-content-between">
+              <span><i class="fa-regular fa-clock"></i> {{ news.date }}</span>
+              </p>
           </div>
         </div>
+
       </div>
 
     </div>

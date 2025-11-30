@@ -1,8 +1,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import { initializeApp } from "firebase/app";
+// 👇 改從我們剛建好的 firebase.js 引入 rtdb
+import { rtdb } from '../firebase'; 
 import { 
-  getDatabase, 
   ref as dbRef, 
   onValue, 
   push, 
@@ -11,31 +11,15 @@ import {
   serverTimestamp 
 } from "firebase/database";
 
-// 👇 1. 請把你在 Firebase 複製的設定貼在這裡
-const firebaseConfig = {
-  apiKey: "AIzaSyBrazD_hbSYb8MEOh8AF2M6poVAVTkFbt4",
-  authDomain: "temple-website-d2c2f.firebaseapp.com",
-  databaseURL: "https://temple-website-d2c2f-default-rtdb.firebaseio.com/",
-  projectId: "temple-website-d2c2f",
-  storageBucket: "temple-website-d2c2f.firebasestorage.app",
-  messagingSenderId: "14528129688",
-  appId: "1:14528129688:web:cfce27f45248adfc897eed",
-  measurementId: "G-EQZCSSR9N4"
-};
-
-// 初始化 Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
 const onlineCount = ref(0); // 綁定畫面上的人數
 
 onMounted(() => {
   // 定義這台裝置在資料庫的位置： /connections/亂數ID
-  const listRef = dbRef(db, 'connections');
+  const listRef = dbRef(rtdb, 'connections');
   const userRef = push(listRef);
 
   // 監聽：一旦連上 Firebase
-  const connectedRef = dbRef(db, '.info/connected');
+  const connectedRef = dbRef(rtdb, '.info/connected');
   onValue(connectedRef, (snap) => {
     if (snap.val() === true) {
       // A. 當我連上時，把自己寫入資料庫

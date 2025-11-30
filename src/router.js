@@ -1,13 +1,27 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { auth } from './firebase'
+//官網路由
 import HomeView from './views/HomeView.vue'
 import HistoryView from './views/HistoryView.vue'
 import GodsInfo from './views/GodsInfoView.vue'
+//後臺路由
+import Login from './views/admin/Login.vue'; // 引入登入頁
+import Dashboard from './views/admin/Dashboard.vue'; 
+import NewsManager from './views/admin/NewsManager.vue'
 
 // 設定路由表
 const routes = [
   { path: '/', component: HomeView },          // 首頁
   { path: '/history', component: HistoryView }, // 沿革頁
-  { path: '/gods-intro', component: GodsInfo }
+  { path: '/gods-intro', component: GodsInfo },
+
+  { path: '/admin', component: Login },
+  { 
+    path: '/admin/dashboard', 
+    component: Dashboard,
+    meta: { requiresAuth: true } // 👈 貼上標籤：這一頁需要權限！
+  },
+  { path: '/admin/newsmanger', component: NewsManager },
 ]
 
 const router = createRouter({
@@ -33,4 +47,23 @@ const router = createRouter({
   }
 })
 
+// 👇👇👇 重點：全域導航守衛 (Security Guard) 👇👇👇
+router.beforeEach((to, from, next) => {
+  // 1. 檢查目標頁面是否需要權限 (有沒有 meta.requiresAuth)
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  
+  // 2. 檢查目前使用者是否已登入
+  const currentUser = auth.currentUser;
+
+  if (requiresAuth && !currentUser) {
+    // ✋ 如果需要權限但沒登入 -> 踢回登入頁
+    next('/admin');
+  } else if (to.path === '/admin' && currentUser) {
+    // 🤔 如果已經登入卻還想去登入頁 -> 直接送去 Dashboard
+    next('/admin/dashboard');
+  } else {
+    // ✅ 通行
+    next();
+  }
+});
 export default router

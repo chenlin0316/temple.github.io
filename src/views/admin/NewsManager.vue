@@ -178,7 +178,7 @@ onMounted(() => {
               </div>
               
               <div class="mb-3">
-                <label class="form-label">圖片網址</label>
+                <label class="form-label">訊息連結網址</label>
                 <input v-model="newPost.image" type="text" class="form-control">
               </div>
 

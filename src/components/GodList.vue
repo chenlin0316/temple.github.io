@@ -17,31 +17,31 @@ const gods = ref([
     id: 1,
     name: '主祀 - 西秦王爺',
     desc: '。',
-    image: '/temple.github.io/images/God_XiChing_Ori.jpg' 
+    image: '/images/God_XiChing_Ori.jpg' 
   },
   {
     id: 2,
     name: '天上聖母 (媽祖)',
     desc: '。',
-    image: '/temple.github.io/images/God_Mazu.jpg'
+    image: '/images/God_Mazu.jpg'
   },
   {
     id: 3,
     name: '濟公活佛',
     desc: '。',
-    image: '/temple.github.io/images/God_JiGong.jpg'
+    image: '/images/God_JiGong.jpg'
   },
   {
     id: 4,
     name: '玄天上帝',
     desc: '。',
-    image: '/temple.github.io/images/God_Xuantian.jpg'
+    image: '/images/God_Xuantian.jpg'
   },
   {
     id: 5,
     name: '福德正神',
     desc: '。',
-    image: '/temple.github.io/images/God_Fude.jpg'
+    image: '/images/God_Fude.jpg'
   },
 ])
 

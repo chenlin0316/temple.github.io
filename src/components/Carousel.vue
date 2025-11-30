@@ -6,7 +6,7 @@ const slides = ref([
   {
     id: 1,
     // 記得改成你實際的圖片檔名 (放在 public/images/ 下)
-    image: '/images/TempleGate.jpg', 
+    image: '/temple.github.io/images/TempleGate.jpg', 
     title: '廟方簡介',
     desc: '點擊觀看王聖壇起源與發展',
     // 這裡放你要連結的 YouTube 網址
@@ -14,14 +14,14 @@ const slides = ref([
   },
   {
     id: 2,
-    image: '/images/Pilgrimage.jpg',
+    image: '/temple.github.io/images/Pilgrimage.jpg',
     title: '一日進香',
     desc: '保佑合境平安，風調雨順 (點擊看影片)',
     link: 'https://www.youtube.com/watch?v=3HRijkw1D4o'
   },
   {
     id: 3,
-    image: '/images/Giving.jpg',
+    image: '/temple.github.io/images/Giving.jpg',
     title: '中元普渡',
     desc: '十方佈施，廣植福田',
     link: 'https://www.youtube.com/watch?v=gkQUic0w8WY'

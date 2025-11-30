@@ -1,22 +1,12 @@
 <script setup>
-// 引入我們建立的所有元件
-import Navbar from './components/Navbar.vue'
-import Carousel from './components/Carousel.vue'
-import News from './components/News.vue'
-import Inquiry from './components/Inquiry.vue'
-import Traffic from './components/Traffic.vue'
-import Footer from './components/Footer.vue'
+  import Navbar from './components/Navbar.vue'
+  import Footer from './components/Footer.vue'
 </script>
 
 <template>
   <Navbar />
-  
-  <main>
-    <Carousel />
-    <News />
-    <Inquiry />
-    <Traffic />
-  </main>
+  <div style="margin-bottom: 15px;"></div>
+  <router-view />
 
   <Footer></Footer>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <footer id="contact" class="text-center text-white py-4" style="background-color: #333;">
-    <div class="container">
+    <div class="container-fluid">
       <div class="mb-3">
         <a href="https://www.facebook.com/people/%E9%BB%8E%E6%98%8E%E7%8E%8B%E8%81%96%E5%A3%87/100095258174479/?sk=about_contact_and_basic_info" target="_blank" class="social-icon mx-2" title="Facebook">
           <i class="fa-brands fa-facebook fa-2x"></i>

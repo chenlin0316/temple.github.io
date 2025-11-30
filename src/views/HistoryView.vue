@@ -11,7 +11,7 @@ import Godlist from '../components/GodList.vue';
         <h2 class="section-title text-center mb-5">廟宇歷史沿革</h2>
         <div class="row align-items-center mb-5">
           <div class="col-md-6 mb-3">
-            <img src="/temple.github.io/images/TempleGate.jpg" class="img-fluid rounded shadow" alt="建廟初期">
+            <img src="/images/TempleGate.jpg" class="img-fluid rounded shadow" alt="建廟初期">
             <p class="text-muted text-center small mt-2">▲ 民國 70 年建廟初期珍貴影像</p>
           </div>
           <div class="col-md-6">
@@ -30,7 +30,7 @@ import Godlist from '../components/GodList.vue';
         <h2 class="section-title text-center mb-5"> 王聖壇的重建與發展</h2>
         <div class="row align-items-center mb-5">
           <div class="col-md-6 mb-3">
-            <img src="/temple.github.io/images/temple_rebuild.jpg" class="img-fluid rounded shadow" alt="建廟初期">
+            <img src="/images/temple_rebuild.jpg" class="img-fluid rounded shadow" alt="建廟初期">
             <p class="text-muted text-center small mt-2">▲ 民國 90 年 重建後影像</p>
           </div>
           <div class="col-md-6">
